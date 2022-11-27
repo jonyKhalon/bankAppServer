@@ -1,4 +1,6 @@
+require('dotenv').config()
 require('../DL/db').connect()
+
 const userDL = require('../DL/user.controller')
 
 async function createNewUser(data) {

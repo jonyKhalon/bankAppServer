@@ -1,7 +1,13 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-    fullName : {
+    fName : {
+        type: String
+    },
+    lName : {
+        type: String
+    },
+    displayName : {
         type: String
     },
     email : {
@@ -14,11 +20,6 @@ const userSchema = new mongoose.Schema({
         require : true,
         select : false
     },
-    permission : {
-        type: String,
-        enum : ["admin", "editor","viewer"],
-        default : "viewer"
-    },
     createDate : {
         type: Date,
         default: Date.now
@@ -26,8 +27,7 @@ const userSchema = new mongoose.Schema({
     isActive : {
         type: Boolean,
         default: true
-    },
-
+    }
 })
 
 const userData = mongoose.model('user',userSchema);
