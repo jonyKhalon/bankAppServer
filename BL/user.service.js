@@ -14,12 +14,6 @@ async function createNewUser(data) {
   return await userDL.create(data);
 }
 
-let newUser = {
-  fullName: "liron haim",
-  // email: 'Avi@Levi.com',
-  email: "liron@gmail.com",
-  password: "98372jhxz",
-};
 
 const getAllUsers = async () => {
   return await userDL.read({});
@@ -28,6 +22,7 @@ const getAllUsers = async () => {
 const login = async (body) => {
   if (!body.email || !body.password) throw { message: "missing data" };
   const user = await userDL.read({ email: body.email }, "email password");
+  console.log("🚀 ~ file: user.service.js:31 ~ login ~ user", user)
 
   if (!user[0]) throw { message: "user dosn't exist" };
   if (user[0].password === body.password) {
@@ -43,4 +38,20 @@ const getUserDetails = async (id) => {
   if (!user[0]) throw { message: "user dosn't exist" };
   return user[0];
 };
-module.exports = { getAllUsers, createNewUser, login, getUserDetails };
+
+
+const addBudget = async (_id, newList) => {
+  if (!_id || !newList) throw { message: "missing data" }
+  const updateUser = await userDL.update({ _id: _id }, { budget: newList })
+  return await userDL.read({})
+}
+
+const addTransaction = async (_id, newTransactionsList, newBalance) => {
+  if (!_id || !newTransactionsList || !newBalance) throw { message: "missing data" }
+  const updateUser = await userDL.update({ _id: _id }, {
+    transactions: newTransactionsList, balance: newBalance
+  })
+  return await userDL.read({})
+}
+
+module.exports = { getAllUsers, createNewUser, login, getUserDetails, addBudget, addTransaction };
