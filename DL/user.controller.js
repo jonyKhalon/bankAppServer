@@ -1,24 +1,21 @@
-
-const { userData } = require('./user.model');
+const { userData } = require("./user.model");
 
 // C R U D
 
 async function create(data) {
-    return await userData.create(data)
+  return await userData.create(data);
 }
-async function read(filter) {
-    return await userData.find(filter)
+async function read(filter, proj) {
+  return await userData.find(filter, proj);
 }
 async function update(filter, data) {
-    return await userData.updateOne(filter, data)
+  return await userData.updateOne(filter, data);
 }
 async function del(_id) {
-    return await update({ _id }, { isActive: false })
+  return await update({ _id }, { isActive: false });
 }
 
-module.exports = {create,read,update,del}
-
-
+module.exports = { create, read, update, del };
 
 // create(newUser)
 
